@@ -1,3 +1,9 @@
+# This page is used to demo the current state of Streamlit-analytics2
+# It is deployed at https://steamlit-analytics2.streamlit.app/
+# A major feature here is testing st.secret deployment and providng a window
+# into the current state of streamlit-analytics2
+
+
 """This demo is run through Streamlit Sharing."""
 
 import streamlit as st
@@ -5,6 +11,18 @@ import streamlit_analytics2 as streamlit_analytics
 
 with streamlit_analytics.track():
     st.title("👀 Demo app for streamlit-analytics2")
+
+    # Get the software versions
+    streamlit_version = st.__version__
+    try:
+        streamlit_analytics_version = streamlit_analytics.__version__
+    except AttributeError:
+        streamlit_analytics_version = "Not available"
+
+    # Print the versions
+    st.write(f"Streamlit version: {streamlit_version}")
+    st.write(f"Streamlit-analytics2 version: {streamlit_analytics_version}")
+
     name = st.text_input("Write your name")
     fav = st.selectbox("Select your favorite", ["cat", "dog", "flower"])
     clicked = st.button("Click me")

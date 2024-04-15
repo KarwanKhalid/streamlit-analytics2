@@ -140,3 +140,5 @@ tree
 black
 test_results_*
 path/
+firebase-key.json
+secrets.toml
