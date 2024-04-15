@@ -1,7 +1,8 @@
+import json
+
+import streamlit as st
 from google.cloud import firestore
 from google.oauth2 import service_account
-import streamlit as st
-import json
 
 
 def sanitize_data(data):

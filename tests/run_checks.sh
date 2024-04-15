@@ -25,36 +25,33 @@ filename="test_results_$timestamp.md"
 # Temporary file to store errors
 error_log="errors_$timestamp.tmp"
 
-# Optionally activate your virtual environment
-# source ../path/to/your/venv/bin/activate
-
 # Prepend a go syntax to the file in order to increase readability
 echo '```go' > $filename
 
 # Run checks and capture their exit statuses
 {
 echo "Running Black..."
-black ../src --check --verbose 2>&1 || { echo "ERRORS from Black" >> $error_log; any_failures=1; }
+black ../src --check --verbose 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 echo "Sorting imports with isort..."
-isort ../src --check-only --verbose --diff 2>&1 || { echo "ERRORS from isort" >> $error_log; any_failures=1; }
+isort ../src --check-only --verbose --diff 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 echo "Linting with Flake8..."
-flake8 ../src 2>&1 || { echo "ERRORS from Flake8" >> $error_log; any_failures=1; }
+flake8 ../src 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 echo "Static type check with mypy..."
-mypy ../src 2>&1 || { echo "ERRORS from mypy" >> $error_log; any_failures=1; }
+mypy ../src --config-file ../mypy.ini 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 echo "Checking for security issues with bandit..."
-bandit -r ../src 2>&1 || { echo "ERRORS from bandit" >> $error_log; any_failures=1; }
+bandit -r ../src 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 echo "Running pytest with coverage..."
-pytest ../ 2>&1 || { echo "ERRORS from pytest" >> $error_log; any_failures=1; }
+pytest ../ 2>&1 | tee -a $error_log || any_failures=1
 echo -e "Complete.\n"
 
 if [ $any_failures -eq 0 ]; then
@@ -74,6 +71,3 @@ echo '```' >> $filename
 
 # Cleanup temporary error log
 rm $error_log
-
-# Optionally deactivate virtual environment if activated earlier
-# deactivate
