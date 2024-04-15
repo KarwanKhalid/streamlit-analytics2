@@ -119,16 +119,25 @@ def show_results(counts, reset_callback, unsafe_password=None):
         for i in counts["widgets"].keys():
             st.markdown(f"##### `{i}` Widget Usage")
             if type(counts["widgets"][i]) is dict:
-                st.dataframe(pd.DataFrame({
-                    "widget_name": i,
-                    "selected_value": list(counts["widgets"][i].keys()),
-                    "number_of_interactions": counts["widgets"][i].values()
-                }).sort_values(by="number_of_interactions", ascending=False))
+                st.dataframe(
+                    pd.DataFrame(
+                        {
+                            "widget_name": i,
+                            "selected_value": list(counts["widgets"][i].keys()),
+                            "number_of_interactions": counts["widgets"][i].values(),
+                        }
+                    ).sort_values(by="number_of_interactions", ascending=False)
+                )
             else:
-                st.dataframe(pd.DataFrame({
-                    "widget_name": i,
-                    "number_of_interactions": counts["widgets"][i]
-                }, index=[0]).sort_values(by="number_of_interactions", ascending=False))
+                st.dataframe(
+                    pd.DataFrame(
+                        {
+                            "widget_name": i,
+                            "number_of_interactions": counts["widgets"][i],
+                        },
+                        index=[0],
+                    ).sort_values(by="number_of_interactions", ascending=False)
+                )
 
         # Show button to reset analytics.
         st.header("Danger zone")
