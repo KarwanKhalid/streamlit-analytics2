@@ -61,6 +61,11 @@ def test_firebase_storage():
         st.button("Click Me!")
 
 
+def test_firebase_storage_with_st_secret():
+    with streamlit_analytics.track(verbose=True, streamlit_secrets_firestore_key="firebase_key", firestore_project_name=st.secrets["project_name"], firestore_collection_name=st.secrets["collection_secret"]):
+        st.write("You should see this in your firebase dashboard")
+        st.button("Click Me!")
+
 def test_analytics_track_local_json_storing():
     # requires additional testing to ensure error handling
     with streamlit_analytics.track(verbose=True, save_to_json="path/to/file.json"):
@@ -78,7 +83,7 @@ def test_analytics_track_local_json_loading():
 # Dropdown menu for selecting the test
 option = st.selectbox(
     'Select the functionality to test:',
-    ('Test All Widgets', 'Password Protection', 'Firebase Storage', 
+    ('Password Protection',  'Firebase Storage', 'Firebase st.secret use', 'Test All Widgets', 
      'Analytics Track Local JSON Storing', 'Analytics Track Local JSON Loading')
 )
 
@@ -89,6 +94,8 @@ elif option == 'Password Protection':
     test_password_protection()
 elif option == 'Firebase Storage':
     test_firebase_storage()
+elif option == 'Firebase st.secret use':
+    test_firebase_storage_with_st_secret()
 elif option == 'Analytics Track Local JSON Storing':
     test_analytics_track_local_json_storing()
 elif option == 'Analytics Track Local JSON Loading':
