@@ -47,26 +47,30 @@ def test_all_widgets():
 
 
 def test_password_protection():
-    with streamlit_analytics.track(unsafe_password=st.secrets["test_unsafe_password"]):
-        st.write("Testing password protection.... Please enter '?analytics=on' after the URL")
+    with streamlit_analytics.track(verbose=True, unsafe_password=st.secrets["unsafe_password"]):
+        st.markdown("""
+        Testing password protection.... Please enter '?analytics=on' after the URL   
+        There should already be a Key and Value for each widget in Firebase.
+        """)
+
 
 
 def test_firebase_storage():
-    with streamlit_analytics.track(firestore_key_file="firebase-key.json", firestore_collection_name="streamlit-analytics2"):
+    with streamlit_analytics.track(verbose=True, firestore_key_file="firebase-key.json", firestore_collection_name="streamlit-analytics2"):
         st.write("You should see this in your firebase dashboard")
         st.button("Click Me!")
 
 
 def test_analytics_track_local_json_storing():
     # requires additional testing to ensure error handling
-    with streamlit_analytics.track(save_to_json="path/to/file.json"):
+    with streamlit_analytics.track(verbose=True, save_to_json="path/to/file.json"):
         st.write("Testing analytics tracking with local JSON storing...")
         st.button("Click Me!")
 
 
 def test_analytics_track_local_json_loading():
     # requires additional testing to ensure error handling
-    with streamlit_analytics.track(load_from_json="path/to/file.json"):
+    with streamlit_analytics.track(verbose=True, load_from_json="path/to/file.json"):
         st.write("Testing analytics tracking with local JSON loading...")
         st.button("Click Me!")
 
