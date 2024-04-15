@@ -14,11 +14,14 @@ with streamlit_analytics.track():
 
     # Get the software versions
     streamlit_version = st.__version__
-    streamlit_analytics_version = streamlit_analytics.__version__
+    try:
+        streamlit_analytics_version = streamlit_analytics.__version__
+    except AttributeError:
+        streamlit_analytics_version = "Not available"
 
     # Print the versions
     st.write(f"Streamlit version: {streamlit_version}")
-    st.write(f"Python version: {streamlit_analytics_version}")
+    st.write(f"Streamlit-analytics2 version: {streamlit_analytics_version}")
 
     name = st.text_input("Write your name")
     fav = st.selectbox("Select your favorite", ["cat", "dog", "flower"])
