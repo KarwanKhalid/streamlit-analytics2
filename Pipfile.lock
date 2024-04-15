@@ -838,7 +838,6 @@
         },
         "streamlit-analytics2": {
             "editable": true,
-            "markers": "python_version >= '3.9'",
             "path": "."
         },
         "tenacity": {
