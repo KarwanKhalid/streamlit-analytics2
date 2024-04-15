@@ -1,3 +1,7 @@
+# This is the basic display page.
+# It just shows basic diagnostic info and verifies that a config works
+# More advanced testing should be done via examples/pages/all-features.py
+
 import os
 import platform
 import sys
@@ -28,12 +32,7 @@ st.write(f"Streamlit version: {streamlit_version}")
 
 st.markdown("---")
 
-
-# with streamlit_analytics.track(unsafe_password="test123"):
-with streamlit_analytics.track(save_to_json="path/to/file.json"):
+with streamlit_analytics.track():
     st.text_input("Write your name")
     st.selectbox("Select your favorite", ["cat", "dog", "flower"])
     st.button("Click me")
-    prompt = st.chat_input("Send a prompt to the bot")
-    if prompt:
-        st.write(f"User has sent the following prompt: {prompt}")

@@ -105,6 +105,10 @@ def show_results(counts, reset_callback, unsafe_password=None):
             <br>
             <sub>Note: Numbers only increase if the state of the widget
             changes, not every time streamlit runs the script.</sub>
+            <br>
+            If you would like to improve the way the below metrics are 
+            displayed, please open an issue/PR on [streamlit-analytics2](https://github.com/444B/streamlit-analytics2)
+            with a clear suggestion
             """,
             unsafe_allow_html=True,
         )
