@@ -1,4 +1,3 @@
-import logging
 from google.cloud import firestore
 from google.oauth2 import service_account
 import streamlit as st
@@ -15,10 +14,11 @@ def sanitize_data(data):
     else:
         return data
 
+
 def load(counts, service_account_json, collection_name, streamlit_secrets_firestore_key, firestore_project_name):
     """Load count data from firestore into `counts`."""
     if streamlit_secrets_firestore_key is not None:
-        # Following along here 
+        # Following along here
         # https://blog.streamlit.io/streamlit-firestore-continued/#part-4-securely-deploying-on-streamlit-sharing for deploying to Streamlit Cloud with Firestore
         key_dict = json.loads(st.secrets[streamlit_secrets_firestore_key])
         creds = service_account.Credentials.from_service_account_info(key_dict)
@@ -35,7 +35,7 @@ def load(counts, service_account_json, collection_name, streamlit_secrets_firest
         for key in firestore_counts:
             if key in counts:
                 counts[key] = firestore_counts[key]
-    
+
     # Log loaded data for debugging
     # logging.debug("Data loaded from Firestore: %s", firestore_counts)
 
@@ -57,7 +57,7 @@ def save(counts, service_account_json, collection_name, streamlit_secrets_firest
     doc = col.document("counts")
     # TODO pass user set argument via config screen for the name of document
     # currently hard coded to be "counts"
-    
+
     # Log the data being saved
     # logging.debug("Data being saved to Firestore: %s", sanitized_counts)
 

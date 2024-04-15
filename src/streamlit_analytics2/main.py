@@ -296,7 +296,7 @@ def start_tracking(
             print()
 
     elif firestore_key_file and not counts["loaded_from_firestore"]:
-        firestore.load(counts, firestore_key_file, firestore_collection_name, streamlit_secrets_firestore_key=None,firestore_project_name=None)
+        firestore.load(counts, firestore_key_file, firestore_collection_name, streamlit_secrets_firestore_key=None, firestore_project_name=None)
         counts["loaded_from_firestore"] = True
         if verbose:
             print("Loaded count data from firestore:")
@@ -486,7 +486,7 @@ def stop_tracking(
             print("Saving count data to firestore:")
             print(counts)
             print()
-        firestore.save(counts, firestore_key_file, firestore_collection_name, streamlit_secrets_firestore_key=None,firestore_project_name=None)
+        firestore.save(counts, firestore_key_file, firestore_collection_name, streamlit_secrets_firestore_key=None, firestore_project_name=None)
 
     # Dump the counts to json file if `save_to_json` is set.
     # TODO: Make sure this is not locked if writing from multiple threads.
@@ -531,8 +531,6 @@ def track(
     This also shows the analytics results below your app if you attach
     `?analytics=on` to the URL.
     """
-
-
     if streamlit_secrets_firestore_key is not None and firestore_project_name is not None:
         start_tracking(
             verbose=verbose,
@@ -548,9 +546,7 @@ def track(
             firestore_collection_name=firestore_collection_name,
             load_from_json=load_from_json,
         )
-
-
-   # Yield here to execute the code in the with statement. This will call the wrappers
+    # Yield here to execute the code in the with statement. This will call the wrappers
     # above, which track all inputs.
     yield
     if streamlit_secrets_firestore_key is not None and firestore_project_name is not None:

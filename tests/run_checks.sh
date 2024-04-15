@@ -1,11 +1,11 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Define color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NO_COLOR='\033[0m' # No Color
 
-# check that the user is in the tests dir/
+# Check that the user is in the tests directory
 if [ ! -f "run_checks.sh" ]; then
     echo -e "${RED}Please run this script from the tests directory.${NO_COLOR}"
     exit 1
@@ -20,7 +20,7 @@ any_failures=0
 # Generate a timestamp
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
-# create a markdown file to store the results
+# Create a markdown file to store the results
 filename="test_results_$timestamp.md"
 # Temporary file to store errors
 error_log="errors_$timestamp.tmp"
@@ -28,33 +28,33 @@ error_log="errors_$timestamp.tmp"
 # Optionally activate your virtual environment
 # source ../path/to/your/venv/bin/activate
 
-# prepend a go syntax to the file in order to increase readability
+# Prepend a go syntax to the file in order to increase readability
 echo '```go' > $filename
 
 # Run checks and capture their exit statuses
 {
 echo "Running Black..."
-black ../src --check --verbose 2>&1 || echo "ERRORS from Black" >> $error_log
+black ../src --check --verbose 2>&1 || { echo "ERRORS from Black" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 echo "Sorting imports with isort..."
-isort ../src --check-only --verbose --diff 2>&1 || echo "ERRORS from isort" >> $error_log
+isort ../src --check-only --verbose --diff 2>&1 || { echo "ERRORS from isort" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 echo "Linting with Flake8..."
-flake8 ../src 2>&1 || echo "ERRORS from Flake8" >> $error_log
+flake8 ../src 2>&1 || { echo "ERRORS from Flake8" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 echo "Static type check with mypy..."
-mypy ../src 2>&1 || echo "ERRORS from mypy" >> $error_log
+mypy ../src 2>&1 || { echo "ERRORS from mypy" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 echo "Checking for security issues with bandit..."
-bandit -r ../src 2>&1 || echo "ERRORS from bandit" >> $error_log
+bandit -r ../src 2>&1 || { echo "ERRORS from bandit" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 echo "Running pytest with coverage..."
-pytest ../ 2>&1 || echo "ERRORS from pytest" >> $error_log
+pytest ../ 2>&1 || { echo "ERRORS from pytest" >> $error_log; any_failures=1; }
 echo -e "Complete.\n"
 
 if [ $any_failures -eq 0 ]; then

@@ -106,19 +106,19 @@ def show_results(counts, reset_callback, unsafe_password=None):
             <sub>Note: Numbers only increase if the state of the widget
             changes, not every time streamlit runs the script.</sub>
             <br>
-            If you would like to improve the way the below metrics are 
+            If you would like to improve the way the below metrics are
             displayed, please open an issue/PR on [streamlit-analytics2](https://github.com/444B/streamlit-analytics2)
             with a clear suggestion
             """,
             unsafe_allow_html=True,
         )
-        
+
         # This section controls how the tables on individual widgets are shown
         # Before, it was just a json of k/v pairs
         # There is still room for improvement and PRs are welcome
         for i in counts["widgets"].keys():
             st.markdown(f"##### `{i}` Widget Usage")
-            if type(counts["widgets"][i]) == dict:
+            if type(counts["widgets"][i]) is dict:
                 st.dataframe(pd.DataFrame({
                     "widget_name": i,
                     "selected_value": list(counts["widgets"][i].keys()),
