@@ -47,7 +47,7 @@ def test_all_widgets():
 
 
 def test_password_protection():
-    with streamlit_analytics.track(unsafe_password="test123"):
+    with streamlit_analytics.track(unsafe_password=st.secrets["test_unsafe_password"]):
         st.write("Testing password protection.... Please enter '?analytics=on' after the URL")
 
 
