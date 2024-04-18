@@ -1,6 +1,7 @@
 # streamlit-analytics2 &nbsp;👀
 
 [![PyPi](https://img.shields.io/pypi/v/streamlit-analytics2)](https://pypi.org/project/streamlit-analytics2/)
+[![CodeFactor](https://www.codefactor.io/repository/github/444b/streamlit-analytics2/badge)](https://www.codefactor.io/repository/github/444b/streamlit-analytics2)
 
 **Enhanced tracking & visualization for your Streamlit apps.**
 
