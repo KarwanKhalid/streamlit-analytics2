@@ -1,7 +1,10 @@
-# streamlit-analytics2 &nbsp;👀
-
+# streamlit-analytics2 👀
 [![PyPi](https://img.shields.io/pypi/v/streamlit-analytics2)](https://pypi.org/project/streamlit-analytics2/)
 [![CodeFactor](https://www.codefactor.io/repository/github/444b/streamlit-analytics2/badge)](https://www.codefactor.io/repository/github/444b/streamlit-analytics2)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/streamlit-analytics2)](https://pypi.org/project/streamlit-analytics2/)
+![Build Status](https://github.com/444B/streamlit-analytics2/actions/workflows/release.yml/badge.svg)
+![Coverage](https://codecov.io/gh/444B/streamlit-analytics2/branch/main/graph/badge.svg)
+
 
 **Enhanced tracking & visualization for your Streamlit apps.**
 
